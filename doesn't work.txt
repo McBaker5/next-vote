@@ -1,0 +1,49 @@
+            {loading && <h4>Loading</h4>}
+            {!user && <Auth />}
+            {user && (
+                <>
+                    <h1>Pineapple on Pizza?</h1>
+
+                    <div style={{ flexDirection: "row", display: "flex" }}>
+                        <button
+                            style={{ fontSize: 32, marginRight: 8 }}
+                            onClick={() => addVoteDocument("yes")}
+                        >
+                            I like pine
+                        </button>
+                        <h3>
+                            Pineapple Lovers:{" "}
+                            {votes?.docs?.filter((doc) => doc.data().vote === "yes").length}
+                        </h3>
+                    </div>
+
+                    <div style={{ flexDirection: "row", display: "flex" }}>
+                        <button
+                            style={{ fontSize: 32 }}
+                            onClick={() => addVoteDocument("no")}
+                        >
+                            I don't
+                        </button>
+                        <h3>
+                            Pineapple Haters:{" "}
+                            {votes?.docs?.filter((doc) => doc.data().vote === "no").length}
+                        </h3>
+                    </div>
+
+                    <div style={{ marginTop: "64px" }}>
+                        <h3> Voters: </h3>
+                        <div
+                            style={{
+                                maxHeight: "320px",
+                                overflowY: "auto",
+                                width: "240px",
+                            }}
+                        >
+                            {votes?.docs?.map((doc) => (
+                                <>
+                                    <VoterList id={doc.id} key={doc.id} vote={doc.data().vote} />
+                                </>
+                            ))}
+                        </div>
+                    </div>
+                </>
